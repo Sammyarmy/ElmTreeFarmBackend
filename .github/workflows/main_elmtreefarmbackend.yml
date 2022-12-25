@@ -53,5 +53,5 @@ jobs:
         with:
           app-name: 'ElmTreeFarmBackend'
           slot-name: 'Production'
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_3C72565598904FE09A798FAF1A237804 }}
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_311CCC20C22245AF900BE083B232D831 }}
           package: .
