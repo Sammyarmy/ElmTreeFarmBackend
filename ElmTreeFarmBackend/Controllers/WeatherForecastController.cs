@@ -1,3 +1,5 @@
+using ElmTreeFarmBackend.Commands;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ElmTreeFarmBackend.Controllers;
@@ -12,21 +14,31 @@ public class WeatherForecastController : ControllerBase
     };
 
     private readonly ILogger<WeatherForecastController> _logger;
+    private readonly WeatherApi _weatherApi;
 
-    public WeatherForecastController(ILogger<WeatherForecastController> logger)
+    public WeatherForecastController(ILogger<WeatherForecastController> logger, WeatherApi weatherApi)
     {
         _logger = logger;
+        _weatherApi = weatherApi;
     }
-
-    [HttpGet(Name = "GetWeatherForecast")]
-    public IEnumerable<WeatherForecast> Get()
+    
+    // [EnableCors("AllowSpecificOrigin")]
+    // [HttpGet(Name = "GetWeatherForecast")]
+    // public IEnumerable<WeatherForecast> Get()
+    // {
+    //     return Enumerable.Range(1, 5).Select(index => new WeatherForecast
+    //         {
+    //             Date = DateOnly.FromDateTime(DateTime.Now.AddDays(index)),
+    //             TemperatureC = Random.Shared.Next(-20, 55),
+    //             Summary = Summaries[Random.Shared.Next(Summaries.Length)]
+    //         })
+    //         .ToArray();
+    // }
+    
+    [EnableCors("AllowSpecificOrigin")]
+    [HttpGet(Name = "GetWeatherLive")]
+    public async Task<WeatherForecast> GetWeatherLive()
     {
-        return Enumerable.Range(1, 5).Select(index => new WeatherForecast
-            {
-                Date = DateOnly.FromDateTime(DateTime.Now.AddDays(index)),
-                TemperatureC = Random.Shared.Next(-20, 55),
-                Summary = Summaries[Random.Shared.Next(Summaries.Length)]
-            })
-            .ToArray();
+        return await _weatherApi.GetWeatherLiveFromApi();
     }
 }
