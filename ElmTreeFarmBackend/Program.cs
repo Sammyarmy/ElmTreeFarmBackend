@@ -1,27 +1,28 @@
 using ElmTreeFarmBackend.Commands;
 
-var builder = WebApplication.CreateBuilder(args);
+var appBuilder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
-builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
-ConfigureServices(builder.Services);
+
+
+ConfigureServices(appBuilder.Services);
 
 void ConfigureServices(IServiceCollection services)
 {
+    services.AddControllers();
+    services.AddEndpointsApiExplorer();
+    services.AddSwaggerGen();
     services.AddCors(options =>
     {
         options.AddPolicy("AllowSpecificOrigin",
-            builder => builder.WithOrigins("http://localhost:3000"));
+            builder => builder.WithOrigins("https://elmtreefarmfrontend.azurewebsites.net"));
     });
     
     services.AddScoped<WeatherApi>();
 }
 
-var app = builder.Build();
+var app = appBuilder.Build();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
