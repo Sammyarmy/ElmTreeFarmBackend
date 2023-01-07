@@ -19,7 +19,7 @@ void ConfigureServices(IServiceCollection services)
             builder => builder.WithOrigins("https://elmtreefarmfrontend.azurewebsites.net"));
     });
     
-    services.AddScoped<WeatherApi>();
+    services.AddTransient<IWeatherApi, WeatherApi>();
 }
 
 var app = appBuilder.Build();

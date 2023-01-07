@@ -3,7 +3,12 @@ using Newtonsoft.Json;
 
 namespace ElmTreeFarmBackend.Commands;
 
-public class WeatherApi
+public interface IWeatherApi
+{
+    Task<WeatherForecast> GetWeatherLiveFromApi();
+}
+
+public class WeatherApi : IWeatherApi
 {
     static HttpClient client = new ();
     
